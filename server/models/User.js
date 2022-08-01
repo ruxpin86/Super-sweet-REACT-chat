@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 
 const messages = require("../models/Message");
 const friendsList = require("../models/FriendList");
+const conversations = require("../models/Conversations")
 
 const userSchema = new Schema(
   {
@@ -30,6 +31,7 @@ const userSchema = new Schema(
     },
     friendsList: [friendsList.schema],
     messages: [messages.schema],
+    conversations: [conversations.schema]
   },
   {
     toJSON: {
