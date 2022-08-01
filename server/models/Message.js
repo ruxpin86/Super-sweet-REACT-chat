@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
-const User = require("./User");
-const Conversations = require("./Conversation");
+// const User = require("./User");
+// const Conversations = require("./Conversation");
 
 const messageSchema = new Schema(
   {

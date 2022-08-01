@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
-const messages = require("../models/Message");
-const friendsList = require("../models/FriendList");
-const conversations = require("../models/Conversations")
+// const messages = require("../models/Message");
+// const friendsList = require("../models/FriendList");
+// const conversations = require("../models/Conversations");
 
 const userSchema = new Schema(
   {
@@ -29,9 +29,24 @@ const userSchema = new Schema(
         "Password needs: Minimum eight characters, at least one letter, one number and one special character",
       ],
     },
-    friendsList: [friendsList.schema],
-    messages: [messages.schema],
-    conversations: [conversations.schema]
+    friendList: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "FriendList",
+      },
+    ],
+    messages: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Messages",
+      },
+    ],
+    conversations: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Conversations",
+      },
+    ],
   },
   {
     toJSON: {
@@ -52,6 +67,10 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
+
+userSchema.virtual("friendCount").get(function () {
+  return this.friendsList.map();
+});
 
 const User = model("User", userSchema);
 
