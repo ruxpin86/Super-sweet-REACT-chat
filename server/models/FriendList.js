@@ -7,7 +7,10 @@ const FriendListSchema = new Schema(
         users: [{
             type: Schema.Types.ObjectId,
             ref: "User",
-        }],    
+        }], 
+        content: {
+            type: String
+        }   
     }
     {
         toJSON: {
