@@ -1,7 +1,7 @@
 const User = require("./User");
 const Messages = require("./Message");
-const Conversation = require("./Conversation");
+const Conversations = require("./Conversations");
 const FriendList = require("./FriendList");
 
 
-module.exports = { User, Messages };
+module.exports = { User, Messages, Conversations, FriendList };

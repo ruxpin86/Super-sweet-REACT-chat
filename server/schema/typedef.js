@@ -28,6 +28,7 @@ const typeDefs = gql`
   type FriendList {
     id: ID!
     users: [User]
+    content: String
   }
 
   type Auth {
@@ -36,6 +37,10 @@ const typeDefs = gql`
   }
 
   input MessageInput {
+    content: String!
+  }
+
+  input FriendInput {
     content: String!
   }
 
@@ -64,7 +69,7 @@ const typeDefs = gql`
 
     addMessage(userId: ID, input: MessageInput): Messages
 
-    addFriend(friendId: ID): FriendList
+    addFriend(userId: ID, input: FriendInput): FriendList
   }
 `;
 
