@@ -31,9 +31,6 @@ export const ADD_MESSAGE = gql`
     addMessage(input: $input, userId: $userId) {
       _id
       content
-      conversations
-      createdAt
-      user
     }
   }
 `;
@@ -42,8 +39,7 @@ export const ADD_FRIEND = gql`
   mutation addFriend($input: FriendInput, $userId: ID) {
     addFriend(input: $input, userId: $userId) {
       _id
-      users
-      content
+      user
     }
   }
 `;

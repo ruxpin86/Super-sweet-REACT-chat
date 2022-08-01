@@ -16,7 +16,6 @@ const resolvers = {
     },
 
     getMe: async (parent, args, context) => {
-      // return User.findOne({ _id: "62d32684b3e6fe38d694f1aa" });
       if (context.user) {
         // return User.findOne({ _id: context.user._id });
         const currentUser = await User.findOne({ _id: context.user._id });
@@ -38,8 +37,9 @@ const resolvers = {
       return FriendList.find();
     },
 
-    getFriendById: async (parent, { friendId }) => {
-      return FriendList.findOne({ _id: friendId });
+    getFriendById: async (parent, { userId }) => {
+      console.log(`friend's ID is ${userId}`);
+      return User.findOne({ _id: userId });
     },
   },
 
@@ -99,7 +99,7 @@ const resolvers = {
           const addFriend = await FriendList.create(input);
           const updatedUser = await User.findByIdAndUpdate(
             { _id: userId },
-            { $push: { friendsList: addFriend } },
+            { $push: { friendList: addFriend } },
             {
               new: true,
               runValidators: true,

@@ -8,7 +8,7 @@ export const QUERY_USERS = gql`
       email
       messages
       conversations
-      friendsList
+      friendList
     }
   }
 `;
@@ -21,7 +21,7 @@ export const QUERY_SINGLE_USER = gql`
       email
       messages
       conversations
-      friendsList
+      friendList
     }
   }
 `;
@@ -41,13 +41,13 @@ export const QUERY_ME = gql`
       }
       conversations {
         _id
+        title
         messages
         members
       }
-      friendsList {
+      friendList {
         _id
-        users
-        content
+        user
       }
     }
   }
@@ -60,6 +60,7 @@ export const QUERY_ALL_MESSAGES = gql`
       content
       conversations{
         _id
+        title
         messages
         members
       }
@@ -73,9 +74,10 @@ export const QUERY_ALL_CONVERSATIONS = gql`
   guery getConversations {
     conversations{
       _id
+      title
       messages{
         _id
-        context
+        content
         createdAt
         user
       }
@@ -88,8 +90,7 @@ export const QUERY_ALL_FRIENDS = gql`
   guery getFriends {
     friendList{
       _id
-      users
-      content
+      user
     }
   }
 `;
