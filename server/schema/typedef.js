@@ -67,3 +67,5 @@ const typeDefs = gql`
     addFriend(friendId: ID): FriendList
   }
 `;
+
+module.exports = typeDefs;
