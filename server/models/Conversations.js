@@ -29,6 +29,6 @@ const conversationSchema = new Schema(
   }
 );
 
-const Conversation = model("Messages", conversationSchema);
+const Conversation = model("Conversations", conversationSchema);
 
 module.exports = Conversation;

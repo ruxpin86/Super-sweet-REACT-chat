@@ -1,11 +1,11 @@
-// require("dotenv").config();
+require("dotenv").config();
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const { authMiddleware } = require("./utils/auth");
 //Socket.io import
 const socketio = require("socket.io");
-const { typeDefs, resolvers } = require("./schemas");
+const { typeDefs, resolvers } = require("./schema");
 const db = require("./config/connection");
 
 const PORT = process.env.PORT || 3001;
