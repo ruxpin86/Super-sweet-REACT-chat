@@ -1,3 +1,4 @@
+const { json } = require("express");
 const { Schema, model } = require("mongoose");
 
 // const User = require("./User");
@@ -17,7 +18,7 @@ const messageSchema = new Schema(
       ref: "Conversation",
     },
     createdAt: {
-      type: new Date(),
+      type: Date,
     },
   },
   {
@@ -26,6 +27,11 @@ const messageSchema = new Schema(
     },
   }
 );
+
+messageSchema.pre("save", function (next) {
+  this.updated_at = Date.now();
+  next();
+});
 
 const Messages = model("Messages", messageSchema);
 
