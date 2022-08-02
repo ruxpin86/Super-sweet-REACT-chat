@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../utils/mutations";
-import Auth from "../utils/auth";
+import { ADD_USER } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 import { Collapse } from "react-collapse";
 
 export default function Signup(props) {
@@ -29,6 +29,28 @@ export default function Signup(props) {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    handleSubmit(async (submitData) => {
+      try {
+        const { data } = await addUser({
+          variables: { ...userFormData },
+        });
+        console.log(data);
+        Auth.login(data.addUser.token);
+        // navigate("/main");
+      } catch (err) {
+        console.error(err);
+      }
+
+      setUserFormData({
+        username: "",
+        email: "",
+        password: "",
+      });
+    })(event);
+  };
 
   return (
     <>
