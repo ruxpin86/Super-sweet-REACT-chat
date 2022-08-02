@@ -8,7 +8,7 @@ const typeDefs = gql`
     password: String!
     messages: [Messages]
     conversations: [Conversations]
-    friendsList: [FriendList]
+    friendList: [FriendList]
   }
 
   type Messages {
@@ -21,14 +21,14 @@ const typeDefs = gql`
 
   type Conversations {
     id: ID!
+    title: String!
     messages: [Messages]
     members: [User]
   }
 
   type FriendList {
     id: ID!
-    users: [User]
-    content: String
+    user: User
   }
 
   type Auth {
@@ -41,7 +41,7 @@ const typeDefs = gql`
   }
 
   input FriendInput {
-    content: String!
+    username: String!
   }
 
   type Query {
@@ -57,7 +57,7 @@ const typeDefs = gql`
 
     getFriends: [FriendList]!
 
-    getFriendById(friendId: ID!): FriendList
+    getFriendById(userId: ID!): User
   }
 
   type Mutations {

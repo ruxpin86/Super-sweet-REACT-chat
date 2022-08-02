@@ -5,6 +5,10 @@ const User = require("./User");
 
 const conversationSchema = new Schema(
   {
+    title: {
+      type: String,
+      required: true,
+    },
     messages: [
       {
         type: Schema.Types.ObjectId,
