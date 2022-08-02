@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/ruxpin86/Super-sweet-REACT-chat#readme",
   "dependencies": {
-    "concurrently": "^7.3.0"
+    "concurrently": "^7.3.0",
+    "hamburger-react": "^2.5.0",
+    "react-collapse": "^5.1.1"
   }
 }

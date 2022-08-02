@@ -12,13 +12,13 @@ import Signup from "./components/Signup";
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <div className="App">
-          <Signup />
-        </div>
-      </Router>
-    </ApolloProvider>
+    // <ApolloProvider client={client}>
+    <Router>
+      <div className="App">
+        <Signup />
+      </div>
+    </Router>
+    // </ApolloProvider>
   );
 }
 
