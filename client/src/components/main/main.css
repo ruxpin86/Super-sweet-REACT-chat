@@ -2,6 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Encode Sans', sans-serif;
+    font-family: 'Khand', sans-serif;
 }
 
 .container{
@@ -11,7 +13,7 @@
     background: linear-gradient(-135deg,rgb(109, 109, 211), rgb(76, 139, 202),rgb(45, 185, 178) ,rgb(159, 224, 220));
     background-size: 400%, 400%;
     position: relative;
-    animation:  change 5s ease-in-out reverse;
+    animation:  change 3s ease-in-out reverse;
 }
 
 @keyframes change{
