@@ -6,7 +6,10 @@ import { LOGIN_USER } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Collapse } from "react-collapse";
 
-export default function Login() {
+import "./login.css";
+
+export default function Login(props) {
+
   const [loginFormData, setloginFormData] = useState({
     email: "",
     password: "",
@@ -55,7 +58,7 @@ export default function Login() {
   return (
     <>
       <h2 className="main-page-form" onClick={() => setOpen(!open)}>
-        Welcome Back! (Login)
+        Login
       </h2>
       <Collapse isOpened={open}>
         <br></br>

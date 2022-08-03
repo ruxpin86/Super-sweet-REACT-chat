@@ -8,6 +8,10 @@
   
 
 .main-page-form{
+    border: solid 2px rgb(98, 172, 98);
+    background-color: rgb(50, 116, 116);
+    margin: 2rem;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +19,7 @@
 
   .main-page-form:hover {
     cursor: s-resize;
-    color: rgb(198, 76, 255);
+    color: rgb(92, 179, 219);
   }
   
   .signup-form {
