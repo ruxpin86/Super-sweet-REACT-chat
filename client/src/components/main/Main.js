@@ -7,7 +7,7 @@ export default function main() {
   return (
     <div className="main">
       <section className="container">
-        <div className="signup">
+        <div className="buttons">
           <Signup />
           <Login />
         </div>

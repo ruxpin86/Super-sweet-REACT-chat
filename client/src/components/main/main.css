@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: 'Encode Sans', sans-serif;
     font-family: 'Khand', sans-serif;
+    /* border: solid 1px white; */
 }
 
 .container{
@@ -18,7 +19,6 @@
     position: relative;
     animation:  change 3s ease-in-out reverse;
 }
-
 
 
 @keyframes change{
