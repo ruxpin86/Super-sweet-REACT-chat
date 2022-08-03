@@ -1,15 +1,27 @@
+/* *{
+    border: solid white;
+} */
+
 .ReactCollapse--collapse {
     transition: height 500ms;
   }
   
+
+.main-page-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
   .main-page-form:hover {
     cursor: s-resize;
-    color: cadetblue;
+    color: rgb(198, 76, 255);
   }
   
   .signup-form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 30vw;
   }
   

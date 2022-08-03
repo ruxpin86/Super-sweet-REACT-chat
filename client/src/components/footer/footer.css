@@ -1,0 +1,10 @@
+.footer-main{
+    display: flex;
+    justify-content: space-around;
+    position:fixed;
+    bottom: 0;
+    height: 1.5rem;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
