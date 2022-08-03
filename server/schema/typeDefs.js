@@ -16,7 +16,7 @@ const typeDefs = gql`
     user: User
     content: String!
     conversations: [Conversations]
-    createdAt: Date
+    createdAt: String
   }
 
   type Conversations {
@@ -41,7 +41,7 @@ const typeDefs = gql`
   }
 
   input FriendInput {
-    username: String!
+    user: String!
   }
 
   type Query {
@@ -60,12 +60,10 @@ const typeDefs = gql`
     getFriendById(userId: ID!): User
   }
 
-  type Mutations {
+  type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
 
     login(email: String!, password: String!): Auth
-
-    removeUser: User
 
     addMessage(userId: ID, input: MessageInput): Messages
 
