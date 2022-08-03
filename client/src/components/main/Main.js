@@ -5,11 +5,11 @@ import "./main.css";
 export default function main() {
   return (
     <div>
-      <div className="container">
+      <section className="container">
         <div className="signup">
           <Signup />
         </div>
-      </div>
+      </section>
     </div>
   );
 }

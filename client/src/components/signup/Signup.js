@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { Collapse } from "react-collapse";
+import "./signup.css";
 
 export default function Signup(props) {
   const [userFormData, setUserFormData] = useState({

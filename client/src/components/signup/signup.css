@@ -1,0 +1,48 @@
+.ReactCollapse--collapse {
+    transition: height 500ms;
+  }
+  
+  .main-page-form:hover {
+    cursor: s-resize;
+    color: cadetblue;
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+  }
+  
+  .signup-form p {
+    color: red;
+  }
+  
+  .signupEl {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .signup-btn {
+    margin-top: 1rem;
+    padding: 3px;
+    width: fit-content;
+    border: 3px solid black;
+    transition: 0.3s;
+  }
+  
+  .signup-btn:hover {
+    cursor: default;
+    border-radius: 2px;
+    color: rgb(164, 117, 208);
+    border: 5px solid rgb(164, 117, 208);
+  }
+  
+  input {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+  }
+  
+  input:focus {
+    outline: none;
+  }
