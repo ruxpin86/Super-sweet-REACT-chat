@@ -7,6 +7,7 @@ import {
 } from "@apollo/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { setContext } from "@apollo/client/link/context";
+import Header from "./components/header/Header";
 import Main from "./components/main/Main";
 import Signup from "./components/signup/Signup";
 
@@ -33,8 +34,11 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="main">
-          <Main />
+        <div>
+          <Header />
+          <div className="main">
+            <Main />
+          </div>
         </div>
       </Router>
     </ApolloProvider>
