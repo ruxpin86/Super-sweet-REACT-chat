@@ -31,6 +31,8 @@ export default function Signup(props) {
     handleSubmit,
   } = useForm();
 
+  const navigate = useNavigate();
+
   const onSubmit = async (event) => {
     event.preventDefault();
     handleSubmit(async (submitData) => {
@@ -40,7 +42,7 @@ export default function Signup(props) {
         });
         console.log(data);
         Auth.login(data.addUser.token);
-        // navigate("/main");
+        navigate("/chat");
       } catch (err) {
         console.error(err);
       }
