@@ -5,9 +5,11 @@ import Auth from "../../utils/auth";
 import { LOGIN_USER } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Collapse } from "react-collapse";
+
 import "./login.css";
 
 export default function Login(props) {
+
   const [loginFormData, setloginFormData] = useState({
     email: "",
     password: "",
@@ -40,9 +42,8 @@ export default function Login(props) {
         const { data } = await login({
           variables: { ...submitData },
         });
-        // console.log(data);
         Auth.login(data.login.token);
-        navigate("/main");
+        navigate("/chat");
       } catch (err) {
         console.error(err);
       }
