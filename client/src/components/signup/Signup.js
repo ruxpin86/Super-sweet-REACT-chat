@@ -31,6 +31,8 @@ export default function Signup(props) {
     handleSubmit,
   } = useForm();
 
+  const navigate = useNavigate();
+
   const onSubmit = async (event) => {
     event.preventDefault();
     handleSubmit(async (submitData) => {
