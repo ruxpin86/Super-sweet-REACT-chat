@@ -117,31 +117,32 @@ export default function Chat() {
   });
 
   return (
-    <div className="main-chat">
-      <div className="body">
-        <p>Connected: {"" + isConnected}</p>
-
-        {/* <p>Last pong: {lastPong || "=ping"}</p> */}
-        {msgRef.current.map((msg) => (
-          <div>
-            <p>
-              {msg.user}: {msg.msg}
-            </p>
-          </div>
-        ))}
+    <div className="main">
+      <div className="main-chat">
+        <div className="body">
+          <p>Connected: {"" + isConnected}</p>
+          {/* <p>Last pong: {lastPong || "=ping"}</p> */}
+          {msgRef.current.map((msg) => (
+            <div>
+              <p>
+                {msg.user}: {msg.msg}
+              </p>
+            </div>
+          ))}
+        </div>
+        <form className="message-field">
+          <textarea
+            autoFocus
+            ref={inputRef}
+            {...register("content", { required: true })}
+            onChange={handleInputChange}
+            value={messageFormData.messageInput}
+          ></textarea>
+        </form>
+        <button classname="send-btn" onClick={handleSubmit} type="submit">
+          Send
+        </button>
       </div>
-      <form className="message-field">
-        <textarea
-          autoFocus
-          ref={inputRef}
-          {...register("content", { required: true })}
-          onChange={handleInputChange}
-          value={messageFormData.messageInput}
-        ></textarea>
-      </form>
-      <button classname="send-btn" onClick={handleSubmit} type="submit">
-        Send
-      </button>
     </div>
   );
 }

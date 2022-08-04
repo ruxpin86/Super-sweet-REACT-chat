@@ -1,4 +1,4 @@
-.main-chat{
+.main{
     display: flex;
     align-items: center;
     justify-content: start;
@@ -10,6 +10,11 @@
     background-size: 400%, 400%;
     position: relative;
     animation:  change 45s ease-in-out infinite;
+}
+
+.message-chat .body{
+    height: 100%;
+    width: 100%;
 }
 
 /* .message-field{
