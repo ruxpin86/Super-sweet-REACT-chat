@@ -11,12 +11,15 @@ import { QUERY_ALL_CONVERSATIONS } from "../../utils/queries";
 //Socket.io Middleware
 const socket = io();
 
-export default function chat() {
-  const [messageFormData, setMessageFormData] = useState("");
+export default function Chat() {
+  const [messageFormData, setMessageFormData] = useState({ content: "" });
   const msgRef = useRef([]);
   const inputRef = useRef(null);
+  const [trig, setTrig] = useState(false);
+  const trigger = () => setTrig((b) => !b);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [scrollTop, setScrollTop] = useState(0);
+  const [scrolling, setScrolling] = useState(false);
 
   const [addMessage, { error }] = useMutation(ADD_MESSAGE);
   if (error) {
@@ -75,30 +78,35 @@ export default function chat() {
   console.log(userMessage);
   console.log(userId);
 
-  const onPageLoad = () => {
-    const {
-      loading,
-      data,
-      error: convoError,
-    } = useQuery(QUERY_ALL_CONVERSATIONS);
+  // const onPageLoad = () => {
+  //   const {
+  //     loading,
+  //     data,
+  //     error: convoError,
+  //   } = useQuery(QUERY_ALL_CONVERSATIONS);
 
-    if (convoError) {
-      console.log(JSON.stringify(convoError));
-    }
+  //   if (convoError) {
+  //     console.log(JSON.stringify(convoError));
+  //   }
 
-    const convoData = data?.getConversations;
-    const convoId = convoData?._id;
-    const convoMembers = convoData?.members;
-    const convoMessages = convoData?.messages;
-  };
+  //   const convoData = data?.getConversations;
+  //   const convoId = convoData?._id;
+  //   const convoMembers = convoData?.members;
+  //   const convoMessages = convoData?.messages;
+  // };
 
   const handleInputChange = (event) => {
-    console.log(event.target.value);
-    setMessageFormData(event.target.value);
+    const { name, value } = event.target;
+    setMessageFormData({ ...messageFormData, [name]: value });
   };
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
   //NEED TO IMPORT USER DATA TO USER IN messageObject
-  const handleFormSubmit = async (event) => {
+  handleSubmit(async (event) => {
     event.preventDefault();
     console.log("submit", messageFormData);
     let messageObject = {
@@ -122,7 +130,7 @@ export default function chat() {
       messageInput: "",
     });
     inputRef.current.focus();
-  };
+  });
 
   return (
     <div>
@@ -143,11 +151,12 @@ export default function chat() {
         <textarea
           autoFocus
           ref={inputRef}
+          {...register("content", { required: true })}
           onChange={handleInputChange}
           value={messageFormData.messageInput}
         ></textarea>
-        <button onClick={handleFormSubmit} type="submit"></button>
       </form>
+      <button onClick={handleSubmit} type="submit"></button>
     </div>
   );
 }
