@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations";
@@ -33,27 +33,31 @@ export default function Signup(props) {
 
   const navigate = useNavigate();
 
-  const onSubmit = async (event) => {
+  handleSubmit(async (event, submitData) => {
     event.preventDefault();
-    handleSubmit(async (submitData) => {
-      try {
-        const { data } = await addUser({
-          variables: { ...userFormData },
-        });
-        console.log(data);
-        Auth.login(data.addUser.token);
-        navigate("/chat");
-      } catch (err) {
-        console.error(err);
-      }
-
-      setUserFormData({
-        username: "",
-        email: "",
-        password: "",
+    console.log("submitdata", submitData);
+    setUserFormData({
+      username: submitData.username,
+      email: submitData.email,
+      password: submitData.password,
+    });
+    try {
+      const { data } = await addUser({
+        variables: { ...userFormData },
       });
-    })(event);
-  };
+      console.log(data);
+      Auth.login(data.addUser.token);
+      navigate("/chat");
+    } catch (err) {
+      console.error(err);
+    }
+
+    setUserFormData({
+      username: "",
+      email: "",
+      password: "",
+    });
+  });
 
   return (
     <>
@@ -100,8 +104,8 @@ export default function Signup(props) {
               character(%!#)
             </p>
           )}
-          <Link to="/main">
-            <button className="signup-btn" type="submit" onClick={onSubmit}>
+          <Link to="/chat">
+            <button className="signup-btn" type="submit" onClick={handleSubmit}>
               Signup
             </button>
           </Link>

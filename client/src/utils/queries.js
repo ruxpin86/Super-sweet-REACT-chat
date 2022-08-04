@@ -37,7 +37,6 @@ export const QUERY_ME = gql`
         content
         user
         conversations
-        createdAt
       }
       conversations {
         _id
@@ -54,11 +53,11 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_ALL_MESSAGES = gql`
-  guery getMessages {
-    messages{
+  query getMessages {
+    messages {
       _id
       content
-      conversations{
+      conversations {
         _id
         title
         messages
@@ -71,11 +70,11 @@ export const QUERY_ALL_MESSAGES = gql`
 `;
 
 export const QUERY_ALL_CONVERSATIONS = gql`
-  guery getConversations {
-    conversations{
+  query getConversations {
+    conversations {
       _id
       title
-      messages{
+      messages {
         _id
         content
         createdAt
@@ -87,8 +86,8 @@ export const QUERY_ALL_CONVERSATIONS = gql`
 `;
 
 export const QUERY_ALL_FRIENDS = gql`
-  guery getFriends {
-    friendList{
+  query getFriends {
+    friendList {
       _id
       user
     }

@@ -16,9 +16,9 @@ const messageSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Conversation",
     },
-    createdAt: {
-      type: Date,
-    },
+    // createdAt: {
+    //   type: Date,
+    // },
   },
   {
     toJSON: {
@@ -27,10 +27,10 @@ const messageSchema = new Schema(
   }
 );
 
-messageSchema.pre("save", function (next) {
-  this.updated_at = Date.now();
-  next();
-});
+// messageSchema.pre("save", function (next) {
+//   this.updated_at = Date.now();
+//   next();
+// });
 
 const Messages = model("Messages", messageSchema);
 
