@@ -15,7 +15,7 @@ export default function Footer() {
         </a>
         Andy P.
       </div>
-      <div>© GoodGuysAlert Production</div>
+      <div>© GoodGuyAlert Productions</div>
       <div className="credits">
         <a href="https://github.com/ruxpin86" target="blank">
           <AiFillGithub size={15} />

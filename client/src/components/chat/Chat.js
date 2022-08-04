@@ -7,6 +7,7 @@ import { ADD_MESSAGE } from "../../utils/mutations";
 import { QUERY_ME } from "../../utils/queries";
 import { QUERY_ALL_MESSAGES } from "../../utils/queries";
 import { QUERY_ALL_CONVERSATIONS } from "../../utils/queries";
+import "./chat.css";
 
 //Socket.io Middleware
 const socket = io();
@@ -78,23 +79,6 @@ export default function Chat() {
   console.log(userMessage);
   console.log(userId);
 
-  // const onPageLoad = () => {
-  //   const {
-  //     loading,
-  //     data,
-  //     error: convoError,
-  //   } = useQuery(QUERY_ALL_CONVERSATIONS);
-
-  //   if (convoError) {
-  //     console.log(JSON.stringify(convoError));
-  //   }
-
-  //   const convoData = data?.getConversations;
-  //   const convoId = convoData?._id;
-  //   const convoMembers = convoData?.members;
-  //   const convoMessages = convoData?.messages;
-  // };
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setMessageFormData({ ...messageFormData, [name]: value });
@@ -133,11 +117,10 @@ export default function Chat() {
   });
 
   return (
-    <div>
-      <h1>Chat</h1>
+    <div className="main-chat">
       <div className="body">
         <p>Connected: {"" + isConnected}</p>
-        <p>Welcome to LiveChat :D</p>
+
         {/* <p>Last pong: {lastPong || "=ping"}</p> */}
         {msgRef.current.map((msg) => (
           <div>
@@ -147,7 +130,7 @@ export default function Chat() {
           </div>
         ))}
       </div>
-      <form>
+      <form className="message-field">
         <textarea
           autoFocus
           ref={inputRef}
@@ -156,7 +139,9 @@ export default function Chat() {
           value={messageFormData.messageInput}
         ></textarea>
       </form>
-      <button onClick={handleSubmit} type="submit"></button>
+      <button classname="send-btn" onClick={handleSubmit} type="submit">
+        Send
+      </button>
     </div>
   );
 }
