@@ -1,4 +1,5 @@
 .footer-main{
+    color: whitesmoke;
     background-color: rgb(76, 144, 144);
     display: flex;
     justify-content: space-around;
@@ -8,4 +9,12 @@
     left: 0;
     right: 0;
     overflow: hidden;
+}
+
+.credits a{
+    color: inherit
+}
+
+.credits a:hover{
+    color: aqua;
 }
