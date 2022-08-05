@@ -19,7 +19,7 @@ export const LOGIN_USER = gql`
     login(email: $email, password: $password) {
       token
       user {
-        _id
+        id
         username
       }
     }
@@ -29,7 +29,7 @@ export const LOGIN_USER = gql`
 export const ADD_MESSAGE = gql`
   mutation addMessage($input: MessageInput, $userId: ID) {
     addMessage(input: $input, userId: $userId) {
-      _id
+      id
       content
     }
   }
@@ -38,7 +38,7 @@ export const ADD_MESSAGE = gql`
 export const ADD_FRIEND = gql`
   mutation addFriend($input: FriendInput, $userId: ID) {
     addFriend(input: $input, userId: $userId) {
-      _id
+      id
       user
     }
   }
