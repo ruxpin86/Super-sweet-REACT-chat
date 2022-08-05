@@ -91,6 +91,7 @@ export default function Chat() {
 
   //NEED TO IMPORT USER DATA TO USER IN messageObject
   handleSubmit(async (event) => {
+    alert("Message Submitted");
     event.preventDefault();
     console.log("submit", messageFormData);
     let messageObject = {
@@ -98,17 +99,21 @@ export default function Chat() {
       user: username,
       msg: messageFormData,
     };
+    const { data } = await addMessage(
+      {
+        variables: {
+          userId: data.messageObject.userID,
+          input: { messages: data.messageObject.msg },
+        },
+      },
+      console.log(data)
+    );
+
     socket.emit("msg", messageObject);
     // setMessageArray([...messageArray, messageFormData]);
     msgRef.current.push(messageObject);
     trigger();
     // try {
-    const { data } = await addMessage({
-      variables: {
-        userId: messageObject.userID,
-        input: { messages: messageObject.msg },
-      },
-    });
 
     setMessageFormData({
       messageInput: "",
@@ -130,7 +135,7 @@ export default function Chat() {
             </div>
           ))}
         </div>
-        <form className="message-field">
+        <form className="message-field" onSubmit={handleSubmit}>
           <textarea
             autoFocus
             ref={inputRef}
@@ -139,7 +144,7 @@ export default function Chat() {
             value={messageFormData.messageInput}
           ></textarea>
         </form>
-        <button className="send-btn" onClick={handleSubmit} type="submit">
+        <button className="send-btn" type="submit">
           Send
         </button>
       </div>
