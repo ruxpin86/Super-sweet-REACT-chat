@@ -12,10 +12,56 @@
     animation:  change 45s ease-in-out infinite;
 }
 
-.message-chat .body{
-    height: 100%;
+.body{
+    /* height: 100%;
+    width: 100%; */
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 95%;
+    height: 75%;
+    background-color: transparent;
+    border-bottom: 4px solid black;
+    font-size: 1.2rem;
+    color: white;
+    border: 1px solid black;
+}
+
+.text-board{
+    margin-top: 1rem;
+    width: 95%;
+    height: 25%;
+    box-sizing: border-box;
+    /* display: flex;
+    flex-direction: row; */
+}
+
+.textarea {
+    /* padding: 1.5rem; */
+    resize: none;
+    /* width: 100%;
+    height: 50%; */
+    box-sizing: border-box;
+    display: block;
+    /*reset from inline*/
+    width: 100%;
+    /* margin: 0; */
+    /*remove defaults*/
+    padding: 4px;
+    background: #EEF;
+    border: 1px solid #333;
+    overflow-y: auto;
+    /*resets IE*/
+    overflow-x: hidden;
+    /*resets IE*/
+    margin-bottom: 5px;
+}
+
+.send-btn {
     width: 100%;
 }
+
 
 /* .message-field{
 

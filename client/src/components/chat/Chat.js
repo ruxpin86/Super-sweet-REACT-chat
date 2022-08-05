@@ -18,9 +18,11 @@ export default function Chat() {
   const inputRef = useRef(null);
   const [trig, setTrig] = useState(false);
   const trigger = () => setTrig((b) => !b);
-  const [isConnected, setIsConnected] = useState(socket.connected);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrolling, setScrolling] = useState(false);
+
+  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [lastPong, setLastPong] = useState(null);
 
   const [addMessage, { error }] = useMutation(ADD_MESSAGE);
   if (error) {
@@ -75,6 +77,7 @@ export default function Chat() {
 
   //THIS ONE FOR GRABBING USER MESSAGE
   const userMessage = userData?.messages;
+
   console.log(userData);
   console.log(userMessage);
   console.log(userId);
@@ -84,65 +87,72 @@ export default function Chat() {
     setMessageFormData({ ...messageFormData, [name]: value });
   };
   const {
-    register,
-    formState: { errors },
-    handleSubmit,
+    // register,
+    // formState: { errors },
+    // handleSubmit,
   } = useForm();
 
   //NEED TO IMPORT USER DATA TO USER IN messageObject
-  handleSubmit(async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("submit", messageFormData);
+    alert("Message Submitted");
     let messageObject = {
       userID: userId,
       user: username,
       msg: messageFormData,
     };
+
     socket.emit("msg", messageObject);
     // setMessageArray([...messageArray, messageFormData]);
-    msgRef.current.push(messageObject);
+    msgRef.current.push(messageObject.user, messageObject.msg);
     trigger();
     // try {
-    const { data } = await addMessage({
-      variables: {
-        userId: messageObject.userID,
-        input: { messages: messageObject.msg },
-      },
-    });
-
+    const { data } = await addMessage(
+      {
+        variables: {
+          userId: messageObject.userID,
+          input: messageObject.msg,
+        },
+      }
+      // console.log(data)
+    );
     setMessageFormData({
-      messageInput: "",
+      content: "",
     });
-    inputRef.current.focus();
-  });
+    // inputRef.current.focus();
+  };
 
   return (
     <div className="main">
-      <div className="main-chat">
-        <div className="body">
-          <p>Connected: {"" + isConnected}</p>
-          {/* <p>Last pong: {lastPong || "=ping"}</p> */}
-          {msgRef.current.map((msg) => (
-            <div>
-              <p>
-                {msg.user}: {msg.msg}
-              </p>
-            </div>
-          ))}
-        </div>
-        <form className="message-field">
+      {/* <div className="main-chat"> */}
+      <div className="body">
+        <p>Connected: {"" + isConnected}</p>
+        {/* <p>Last pong: {lastPong || "=ping"}</p> */}
+        {msgRef.current.map((msg) => (
+          <div>
+            <p>
+              {msg.user}: {msg.msg}
+            </p>
+          </div>
+        ))}
+      </div>
+      <div className="text-board">
+        <form>
           <textarea
+            className="textarea"
             autoFocus
             ref={inputRef}
-            {...register("content", { required: true })}
+            name="content"
+            // {...register("content", { required: true })}
             onChange={handleInputChange}
-            value={messageFormData.messageInput}
+            value={messageFormData.content}
           ></textarea>
+          <button className="send-btn" type="submit" onClick={handleSubmit}>
+            Send
+          </button>
         </form>
-        <button className="send-btn" onClick={handleSubmit} type="submit">
-          Send
-        </button>
       </div>
+      {/* </div> */}
     </div>
   );
 }

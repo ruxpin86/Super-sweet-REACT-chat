@@ -42,7 +42,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
     });
 
     // ADDED THIS FOR SOCKET.IO!!!!
-    const io = socketio(http);
+    let io = socketio(http);
     io.on("connection", (socket) => {
       socket.on("msg", (msg) => {
         console.log(msg);
