@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
-// const messages = require("../models/Message");
+const messages = require("../models/Message");
 // const friendsList = require("../models/FriendList");
 // const conversations = require("../models/Conversations");
 
@@ -36,10 +36,12 @@ const userSchema = new Schema(
       },
     ],
     messages: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Messages",
-      },
+      messages.schema,
+      // {
+
+      //   type: Schema.Types.ObjectId,
+      //   ref: "Messages",
+      // },
     ],
     conversations: [
       {

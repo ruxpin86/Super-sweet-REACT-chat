@@ -9,7 +9,6 @@ import { Collapse } from "react-collapse";
 import "./login.css";
 
 export default function Login(props) {
-
   const [loginFormData, setloginFormData] = useState({
     email: "",
     password: "",

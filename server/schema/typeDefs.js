@@ -12,22 +12,22 @@ const typeDefs = gql`
   }
 
   type Messages {
-    id: ID!
+    id: ID
     user: User
-    content: String!
-    conversations: [Conversations]
+    content: [String]
+    conversations: Conversations
     #createdAt: Date!
   }
 
   type Conversations {
-    id: ID!
-    title: String!
+    id: ID
+    title: String
     messages: [Messages]
     members: [User]
   }
 
   type FriendList {
-    id: ID!
+    id: ID
     user: User
   }
 
@@ -37,11 +37,11 @@ const typeDefs = gql`
   }
 
   input MessageInput {
-    content: String!
+    content: String
   }
 
   input FriendInput {
-    user: String!
+    user: String
   }
 
   type Query {
@@ -51,9 +51,9 @@ const typeDefs = gql`
 
     getMe: User
 
-    getMessages: [Messages]!
+    getMessages: [Messages]
 
-    getConversations: [Conversations]!
+    getConversations: [Conversations]
 
     getFriends: [FriendList]!
 

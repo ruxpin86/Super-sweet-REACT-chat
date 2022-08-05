@@ -3,12 +3,13 @@ import { gql } from "@apollo/client";
 export const QUERY_USERS = gql`
   query allUsers {
     users {
-      _id
+      id
       username
       email
-      messages
-      conversations
-      friendList
+      messages {
+        id
+        content
+      }
     }
   }
 `;
@@ -16,11 +17,16 @@ export const QUERY_USERS = gql`
 export const QUERY_SINGLE_USER = gql`
   query singleUser($userId: ID!) {
     user(userId: $userId) {
-      _id
+      id
       username
       email
-      messages
-      conversations
+      messages {
+        id
+        content
+      }
+      conversations {
+        messages
+      }
       friendList
     }
   }
@@ -29,24 +35,30 @@ export const QUERY_SINGLE_USER = gql`
 export const QUERY_ME = gql`
   query getMe {
     getMe {
-      _id
+      id
       username
       email
       messages {
-        _id
+        id
         content
-        user
-        conversations
+        conversations {
+          id
+          title
+        }
       }
       conversations {
-        _id
+        id
         title
-        messages
-        members
+        members {
+          id
+          username
+        }
       }
       friendList {
-        _id
-        user
+        user {
+          id
+          username
+        }
       }
     }
   }
@@ -55,10 +67,10 @@ export const QUERY_ME = gql`
 export const QUERY_ALL_MESSAGES = gql`
   query getMessages {
     messages {
-      _id
+      id
       content
       conversations {
-        _id
+        id
         title
         messages
         members
@@ -72,10 +84,10 @@ export const QUERY_ALL_MESSAGES = gql`
 export const QUERY_ALL_CONVERSATIONS = gql`
   query getConversations {
     conversations {
-      _id
+      id
       title
       messages {
-        _id
+        id
         content
         createdAt
         user
@@ -88,7 +100,7 @@ export const QUERY_ALL_CONVERSATIONS = gql`
 export const QUERY_ALL_FRIENDS = gql`
   query getFriends {
     friendList {
-      _id
+      id
       user
     }
   }

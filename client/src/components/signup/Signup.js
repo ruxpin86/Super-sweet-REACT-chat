@@ -33,31 +33,27 @@ export default function Signup(props) {
 
   const navigate = useNavigate();
 
-  handleSubmit(async (event, submitData) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    console.log("submitdata", submitData);
-    setUserFormData({
-      username: submitData.username,
-      email: submitData.email,
-      password: submitData.password,
-    });
-    try {
-      const { data } = await addUser({
-        variables: { ...userFormData },
-      });
-      console.log(data);
-      Auth.login(data.addUser.token);
-      navigate("/chat");
-    } catch (err) {
-      console.error(err);
-    }
+    handleSubmit(async (submitData) => {
+      try {
+        const { data } = await addUser({
+          variables: { ...userFormData },
+        });
+        console.log(data);
+        Auth.login(data.addUser.token);
+        navigate("/chat", { replace: true });
+      } catch (err) {
+        console.error(err);
+      }
 
-    setUserFormData({
-      username: "",
-      email: "",
-      password: "",
-    });
-  });
+      setUserFormData({
+        username: "",
+        email: "",
+        password: "",
+      });
+    })(event);
+  };
 
   return (
     <>
@@ -68,12 +64,16 @@ export default function Signup(props) {
         <form className="signup-form">
           <label>Email</label>
           <input
+            value={userFormData.email}
+            type="text"
             {...register("email", { required: true })}
             onChange={handleInputChange}
           />
           {errors.email && <p>Email is required</p>}
           <label>Username</label>
           <input
+            type="text"
+            value={userFormData.username}
             {...register("username", { required: true })}
             onChange={handleInputChange}
           />
@@ -81,6 +81,7 @@ export default function Signup(props) {
           <label>Password</label>
           <input
             type="password"
+            value={userFormData.password}
             {...register("password", {
               required: true,
               minLength: 8,
@@ -104,11 +105,11 @@ export default function Signup(props) {
               character(%!#)
             </p>
           )}
-          <Link to="/chat">
-            <button className="signup-btn" type="submit" onClick={handleSubmit}>
-              Signup
-            </button>
-          </Link>
+          {/* <Link to="/chat"> */}
+          <button className="signup-btn" type="submit" onClick={onSubmit}>
+            Signup
+          </button>
+          {/* </Link> */}
         </form>
       </Collapse>
     </>
