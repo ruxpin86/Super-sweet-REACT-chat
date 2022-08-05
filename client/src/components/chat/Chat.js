@@ -65,13 +65,13 @@ export default function Chat() {
   }, []);
 
   const { loading, data, error: userError } = useQuery(QUERY_ME);
-  console.log(data);
+  // console.log(data);
   if (userError) {
     console.log(JSON.stringify(userError));
   }
   const userData = data?.getMe;
   const username = userData?.username;
-  const userId = userData?._id;
+  const userId = userData?.id;
 
   //THIS ONE FOR GRABBING USER MESSAGE
   const userMessage = userData?.messages;
@@ -139,7 +139,7 @@ export default function Chat() {
             value={messageFormData.messageInput}
           ></textarea>
         </form>
-        <button classname="send-btn" onClick={handleSubmit} type="submit">
+        <button className="send-btn" onClick={handleSubmit} type="submit">
           Send
         </button>
       </div>

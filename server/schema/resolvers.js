@@ -20,28 +20,28 @@ const resolvers = {
         // return User.findOne({ _id: context.user._id });
         const currentUser = await User.findOne({ _id: context.user._id });
         console.log(currentUser);
-        // return currentUser;
+        return currentUser;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+
+    getMessages: async () => {
+      return Messages.find();
+    },
+
+    getConversations: async () => {
+      return Conversations.find();
+    },
+
+    // getFriends: async () => {
+    //   return FriendList.find();
+    // },
+
+    // getFriendById: async (parent, { userId }) => {
+    //   console.log(`friend's ID is ${userId}`);
+    //   return User.findOne({ _id: userId });
+    // },
   },
-
-  // getMessages: async () => {
-  //   return Messages.find();
-  // },
-
-  // getConversations: async () => {
-  //   return Conversations.find();
-  // },
-
-  // getFriends: async () => {
-  //   return FriendList.find();
-  // },
-
-  // getFriendById: async (parent, { userId }) => {
-  //   console.log(`friend's ID is ${userId}`);
-  //   return User.findOne({ _id: userId });
-  // },
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {

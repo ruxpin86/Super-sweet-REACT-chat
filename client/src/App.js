@@ -14,7 +14,7 @@ import Footer from "./components/footer/Footer";
 import Chat from "./components/chat/Chat";
 
 const httpLink = createHttpLink({
-  uri: "/graphql",
+  uri: "http://localhost:3001/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
