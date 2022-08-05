@@ -2,6 +2,24 @@
     color: white;
     background-color: rgb(76, 144, 144);
     display: flex;
-    justify-content: center;
-    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 1rem; */
+    border: solid 1px white;
+}
+
+
+.logout-btn{
+    padding: 3px;
+    border-radius: 5px;
+    box-shadow: 3px;
+    background-color: rgb(143, 207, 207);
+    transition: .5s;
+    font-weight: bolder;
+    width: 3.2rem;
+    margin-left: 10px;
+}
+
+.logout-btn:hover{
+    background-color: rgb(208, 149, 214);
 }
