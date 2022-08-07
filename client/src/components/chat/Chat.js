@@ -1,33 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+// import { Link, Routes, Route, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+// import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
-import io from "socket.io-client";
+import { io } from "socket.io-client";
+import "./chat.css";
 import { ADD_MESSAGE } from "../../utils/mutations";
 import { QUERY_ME } from "../../utils/queries";
-import { QUERY_ALL_MESSAGES } from "../../utils/queries";
-import { QUERY_ALL_CONVERSATIONS } from "../../utils/queries";
-import "./chat.css";
+// import { QUERY_ALL_MESSAGES } from "../../utils/queries";
+// import { QUERY_ALL_CONVERSATIONS } from "../../utils/queries";
 
 //Socket.io Middleware
-const socket = io();
+const socket = io("http://localhost:3001", { transports: ["websocket"] });
+// console.log(socket);
 
 export default function Chat() {
   const [messageFormData, setMessageFormData] = useState({ content: "" });
   const msgRef = useRef([]);
-  const inputRef = useRef(null);
   const [trig, setTrig] = useState(false);
   const trigger = () => setTrig((b) => !b);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrolling, setScrolling] = useState(false);
 
   const [isConnected, setIsConnected] = useState(socket.connected);
-  const [lastPong, setLastPong] = useState(null);
+  // const [lastPong, setLastPong] = useState(null);
 
   const [addMessage, { error }] = useMutation(ADD_MESSAGE);
   if (error) {
     console.log(JSON.stringify(error));
   }
+
+  const inputRef = useRef(null);
 
   //SOCKET.IO
   useEffect(() => {
@@ -66,6 +69,10 @@ export default function Chat() {
     };
   }, []);
 
+  const sendPing = () => {
+    socket.emit("ping");
+  };
+
   const { loading, data, error: userError } = useQuery(QUERY_ME);
   // console.log(data);
   if (userError) {
@@ -83,19 +90,15 @@ export default function Chat() {
   console.log(userId);
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setMessageFormData({ ...messageFormData, [name]: value });
+    // const { name, value } = event.target;
+    // setMessageFormData({ ...messageFormData, [name]: value });
+    setMessageFormData(event.target.value);
   };
-  const {
-    // register,
-    // formState: { errors },
-    // handleSubmit,
-  } = useForm();
 
   //NEED TO IMPORT USER DATA TO USER IN messageObject
   const handleSubmit = async (event) => {
     event.preventDefault();
-    alert("Message Submitted");
+    console.log("Message Submitted", messageFormData);
     let messageObject = {
       userID: userId,
       user: username,
@@ -104,22 +107,19 @@ export default function Chat() {
 
     socket.emit("msg", messageObject);
     // setMessageArray([...messageArray, messageFormData]);
-    msgRef.current.push(messageObject.user, messageObject.msg);
+    msgRef.current.push(messageObject);
     trigger();
     // try {
-    const { data } = await addMessage(
-      {
-        variables: {
-          userId: messageObject.userID,
-          input: messageObject.msg,
-        },
-      }
-      // console.log(data)
-    );
+    const { data } = await addMessage({
+      variables: {
+        userId: messageObject.userID,
+        input: { content: messageObject.msg },
+      },
+    });
     setMessageFormData({
       content: "",
     });
-    // inputRef.current.focus();
+    inputRef.current.focus();
   };
 
   return (
