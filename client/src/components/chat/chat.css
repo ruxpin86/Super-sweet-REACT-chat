@@ -58,6 +58,10 @@
     margin-bottom: 5px;
 }
 
+textarea:focus {
+    outline: none;
+}
+
 .send-btn {
     width: 100%;
 }
