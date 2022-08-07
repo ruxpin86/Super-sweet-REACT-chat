@@ -5,7 +5,7 @@ const path = require("path");
 const { authMiddleware } = require("./utils/auth");
 //Socket.io import
 const socketio = require("socket.io");
-const { typeDefs, resolvers } = require("./schema");
+const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
 
 const PORT = process.env.PORT || 3001;
@@ -41,8 +41,8 @@ const startApolloServer = async (typeDefs, resolvers) => {
       );
     });
 
-    // ADDED THIS FOR SOCKET.IO!!!!
-    let io = socketio(http);
+    //ADDED THIS FOR SOCKET.IO!!!!
+    const io = socketio(http);
     io.on("connection", (socket) => {
       socket.on("msg", (msg) => {
         console.log(msg);
