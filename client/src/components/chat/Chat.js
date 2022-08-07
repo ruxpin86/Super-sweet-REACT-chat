@@ -12,7 +12,8 @@ import { QUERY_ME } from "../../utils/queries";
 
 //Socket.io Middleware
 const socket = io("http://localhost:3001", { transports: ["websocket"] });
-// console.log(socket);
+
+console.log(socket);
 
 export default function Chat() {
   const [messageFormData, setMessageFormData] = useState({ content: "" });
