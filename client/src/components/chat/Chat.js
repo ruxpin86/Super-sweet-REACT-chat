@@ -7,16 +7,16 @@ import { io } from "socket.io-client";
 import "./chat.css";
 import { ADD_MESSAGE } from "../../utils/mutations";
 import { QUERY_ME } from "../../utils/queries";
-// import { QUERY_ALL_MESSAGES } from "../../utils/queries";
+import { QUERY_ALL_MESSAGES } from "../../utils/queries";
 // import { QUERY_ALL_CONVERSATIONS } from "../../utils/queries";
 
 //Socket.io Middleware
 const socket = io("http://localhost:3001", { transports: ["websocket"] });
-// console.log(socket);
 
 export default function Chat() {
   const [messageFormData, setMessageFormData] = useState({ content: "" });
   const msgRef = useRef([]);
+  const previousMsgs = [];
   const [trig, setTrig] = useState(false);
   const trigger = () => setTrig((b) => !b);
   const [scrollTop, setScrollTop] = useState(0);
@@ -24,6 +24,30 @@ export default function Chat() {
 
   const [isConnected, setIsConnected] = useState(socket.connected);
   // const [lastPong, setLastPong] = useState(null);
+
+  // const { loading, data, error: userError } = useQuery(QUERY_ME);
+  // // console.log(data);
+  // if (userError) {
+  //   console.log(JSON.stringify(userError));
+  // }
+  // const userData = data?.getMe;
+  // const username = userData?.username;
+  // const userId = userData?.id;
+
+  // //THIS ONE FOR GRABBING USER MESSAGE
+  // const userMessage = userData?.messages;
+  // msgRef.current.push(userMessage);
+
+  // let previousMsgObject = {
+  //   userName: username,
+  //   msgs: userMessage,
+  // };
+
+  // previousMsgs.push(previousMsgObject);
+
+  // console.log(userData);
+  // console.log(userMessage);
+  // console.log(userId);
 
   const [addMessage, { error }] = useMutation(ADD_MESSAGE);
   if (error) {
@@ -85,9 +109,11 @@ export default function Chat() {
   //THIS ONE FOR GRABBING USER MESSAGE
   const userMessage = userData?.messages;
 
+  previousMsgs.push(userMessage);
+
   console.log(userData);
-  console.log(userMessage);
-  console.log(userId);
+  // console.log(userMessage);
+  // console.log(userId);
 
   const handleInputChange = (event) => {
     // const { name, value } = event.target;
@@ -122,12 +148,25 @@ export default function Chat() {
     inputRef.current.focus();
   };
 
+  const renderPrevMessages = () => {
+    previousMsgs.map((data) => {
+      console.log(data);
+      return `${username}: ${data}`;
+    });
+  };
+
   return (
     <div className="main">
       {/* <div className="main-chat"> */}
       <div className="body">
         <p>Connected: {"" + isConnected}</p>
         {/* <p>Last pong: {lastPong || "=ping"}</p> */}
+        {/* <p>{renderPrevMessages()}</p>
+        {previousMsgs.map((data) => (
+          <div>
+            <p>{data.content}</p>
+          </div>
+        ))} */}
         {msgRef.current.map((msg) => (
           <div>
             <p>

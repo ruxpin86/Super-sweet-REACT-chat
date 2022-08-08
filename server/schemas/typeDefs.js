@@ -14,7 +14,7 @@ const typeDefs = gql`
   type Messages {
     id: ID
     user: User
-    content: [String]
+    content: String
     conversations: Conversations
     #createdAt: Date!
   }
