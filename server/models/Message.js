@@ -9,11 +9,10 @@ const messageSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    content: [
-      {
-        type: String,
-      },
-    ],
+    content: {
+      type: String,
+    },
+
     conversations: {
       type: Schema.Types.ObjectId,
       ref: "Conversation",
