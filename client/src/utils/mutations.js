@@ -27,10 +27,11 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_MESSAGE = gql`
-  mutation addMessage($input: MessageInput, $userId: ID) {
-    addMessage(input: $input, userId: $userId) {
+  mutation addMessage($input: MessageInput, $userId: ID, $username: String) {
+    addMessage(input: $input, userId: $userId, username: $username) {
       id
       content
+      username
     }
   }
 `;

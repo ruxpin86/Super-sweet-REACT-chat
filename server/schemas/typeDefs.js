@@ -13,7 +13,7 @@ const typeDefs = gql`
 
   type Messages {
     id: ID
-    user: User
+    username: User
     content: String
     conversations: Conversations
     #createdAt: Date!
@@ -65,7 +65,7 @@ const typeDefs = gql`
 
     login(email: String!, password: String!): Auth
 
-    addMessage(userId: ID, input: MessageInput, user: String): Messages
+    addMessage(userId: ID, input: MessageInput, username: String): Messages
 
     addFriend(userId: ID, input: FriendInput): FriendList
   }

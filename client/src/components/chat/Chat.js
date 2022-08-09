@@ -175,11 +175,11 @@ export default function Chat() {
             <p>{data && data.content}</p>
           </div>
         ))} */}
-        {data?.getMe?.messages &&
-          data?.getMe?.messages.map((msg) => (
+        {data?.getMe?.User &&
+          data?.getMe?.User.map((msg) => (
             <div>
               <p>
-                {msg.user}: {msg.content}
+                {msg.username}: {msg.messages.content}
               </p>
               <p>user name: {msg.username + ""}</p>
               <pre>{JSON.stringify(msg)}</pre>
