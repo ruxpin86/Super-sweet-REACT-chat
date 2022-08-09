@@ -69,27 +69,31 @@ const resolvers = {
       return { token, user };
     },
 
-    addMessage: async (parent, { userId, input }, context) => {
+    addMessage: async (parent, { userId, input, user }, context) => {
       console.log(`userId value is ${userId}`);
-      console.log(`Input value is ${input}`);
-      if (context.user) {
-        try {
-          const message = await Messages.create(input);
-          const updatedUser = await User.findByIdAndUpdate(
-            { _id: userId },
-            { $push: { messages: message } },
-            {
-              new: true,
-              runValidators: true,
-            }
-          );
-          console.log(message);
-          return { message, updatedUser };
-        } catch (err) {
-          console.error(err);
-        }
+      console.log(`Input value is ${input.content}`);
+      if (!context.user) {
+        throw new AuthenticationError("You need to be logged in!");
       }
-      throw new AuthenticationError("You need to be logged in!");
+      try {
+        const message = await Messages.create({
+          id: userId,
+          user,
+          content: input.content,
+        });
+        const updatedUser = await User.findByIdAndUpdate(
+          userId,
+          { $push: { messages: message }, user: user },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        console.log(message);
+        return { message, updatedUser };
+      } catch (err) {
+        console.error(err);
+      }
     },
 
     addFriend: async (parent, { userId, input }, context) => {
