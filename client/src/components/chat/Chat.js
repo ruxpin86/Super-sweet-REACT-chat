@@ -15,7 +15,7 @@ const socket = io("http://localhost:3001", { transports: ["websocket"] });
 
 export default function Chat() {
   const [messageFormData, setMessageFormData] = useState({ content: "" });
-  const msgRef = useRef([]);
+  const [messages, setMessages] = useState([]);
   const previousMsgs = [];
   const [trig, setTrig] = useState(false);
   const trigger = () => setTrig((b) => !b);
@@ -79,9 +79,10 @@ export default function Chat() {
     });
 
     socket.on("msg", (msg) => {
-      msgRef.current.push(msg);
+      let tempArray = [...messages, msg];
+      setMessages(tempArray);
       trigger();
-      console.log("received msg", msg, msgRef.current);
+      console.log("received msg", msg);
     });
 
     return () => {
@@ -108,8 +109,11 @@ export default function Chat() {
 
   //THIS ONE FOR GRABBING USER MESSAGE
   const userMessage = userData?.messages;
+  // previousMsgs.push(userMessage);
 
-  previousMsgs.push(userMessage);
+  // if (!loading && !error && data) {
+  //   setMessages(userData?.messages);
+  // }
 
   console.log(userData);
   // console.log(userMessage);
@@ -131,14 +135,18 @@ export default function Chat() {
       msg: messageFormData,
     };
 
+    console.log(messageObject);
+
     socket.emit("msg", messageObject);
     // setMessageArray([...messageArray, messageFormData]);
-    msgRef.current.push(messageObject);
+    let tempArray = [...messages, messageObject];
+    setMessages(tempArray);
     trigger();
     // try {
     const { data } = await addMessage({
       variables: {
         userId: messageObject.userID,
+        user: messageObject.user,
         input: { content: messageObject.msg },
       },
     });
@@ -162,18 +170,21 @@ export default function Chat() {
         <p>Connected: {"" + isConnected}</p>
         {/* <p>Last pong: {lastPong || "=ping"}</p> */}
         {/* <p>{renderPrevMessages()}</p>
-        {previousMsgs.map((data) => (
+        {userMessage.map((data) => (
           <div>
-            <p>{data.content}</p>
+            <p>{data && data.content}</p>
           </div>
         ))} */}
-        {msgRef.current.map((msg) => (
-          <div>
-            <p>
-              {msg.user}: {msg.msg}
-            </p>
-          </div>
-        ))}
+        {data?.getMe?.messages &&
+          data?.getMe?.messages.map((msg) => (
+            <div>
+              <p>
+                {msg.user}: {msg.content}
+              </p>
+              <p>user name: {msg.username + ""}</p>
+              <pre>{JSON.stringify(msg)}</pre>
+            </div>
+          ))}
       </div>
       <div className="text-board">
         <form>

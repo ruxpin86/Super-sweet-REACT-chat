@@ -65,7 +65,7 @@ const typeDefs = gql`
 
     login(email: String!, password: String!): Auth
 
-    addMessage(userId: ID, input: MessageInput): Messages
+    addMessage(userId: ID, input: MessageInput, user: String): Messages
 
     addFriend(userId: ID, input: FriendInput): FriendList
   }
