@@ -69,8 +69,9 @@ const resolvers = {
       return { token, user };
     },
 
-    addMessage: async (parent, { userId, input, user }, context) => {
+    addMessage: async (parent, { userId, input, username }, context) => {
       console.log(`userId value is ${userId}`);
+      console.log(`user value is ${username}`);
       console.log(`Input value is ${input.content}`);
       if (!context.user) {
         throw new AuthenticationError("You need to be logged in!");
@@ -78,7 +79,7 @@ const resolvers = {
       try {
         const message = await Messages.create({
           id: userId,
-          user,
+          username,
           content: input.content,
         });
         const updatedUser = await User.findByIdAndUpdate(

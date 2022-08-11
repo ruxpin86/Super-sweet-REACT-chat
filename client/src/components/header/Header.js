@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import "./header.css";
 import { Cross as Hamburger } from "hamburger-react";
+// import { useState } from "react";
+// import { Auth } from "../../utils/auth";
 
 export default function Header() {
   const [isOpen, setOpen] = useState(false);
+
+  // const onSubmit = async (event) => {
+  //   event.preventDefault();
+  //   Auth.logout();
+  // };
 
   return (
     <div className="header">

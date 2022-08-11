@@ -5,8 +5,8 @@ const { Schema, model } = require("mongoose");
 
 const messageSchema = new Schema(
   {
-    user: {
-      type: Schema.Types.ObjectId,
+    username: {
+      type: String,
       ref: "User",
     },
     content: {

@@ -39,10 +39,7 @@ export const QUERY_ME = gql`
       username
       email
       messages {
-        user {
-          id
-          username
-        }
+        username
         id
         content
         conversations {
