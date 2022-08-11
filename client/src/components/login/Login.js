@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Auth from "../../utils/auth";
-import { LOGIN_USER } from "../../utils/mutations";
-import { useMutation } from "@apollo/client";
+// import { LOGIN_USER } from "../../utils/mutations";
+// import { useMutation } from "@apollo/client";
 import { Collapse } from "react-collapse";
+import { loginUser } from "../../utils/API";
 
 import "./login.css";
 
@@ -13,13 +14,14 @@ export default function Login(props) {
     email: "",
     password: "",
   });
+  const [validated] = useState(false);
 
   const [open, setOpen] = useState(false);
 
-  const [login, { error }] = useMutation(LOGIN_USER);
-  if (error) {
-    console.log(JSON.stringify(error));
-  }
+  // const [login, { error }] = useMutation(LOGIN_USER);
+  // if (error) {
+  //   console.log(JSON.stringify(error));
+  // }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -38,11 +40,18 @@ export default function Login(props) {
     handleSubmit(async (submitData) => {
       // console.log(submitData);
       try {
-        const { data } = await login({
-          variables: { ...submitData },
-        });
-        Auth.login(data.login.token);
-        navigate("/chat");
+        // const { data } = await login({
+        //   variables: { ...submitData },
+        // });
+        // Auth.login(data.login.token);
+        // navigate("/chat");
+        const response = await loginUser(loginFormData);
+        if (!response.ok) {
+          throw new Error("something went terribly wrong.");
+        }
+        const { token, user } = await response.json();
+        console.log(user);
+        Auth.login(token);
       } catch (err) {
         console.error(err);
       }
@@ -64,12 +73,14 @@ export default function Login(props) {
         <form className="login-form">
           <label>Email</label>
           <input
+            value={loginFormData.email}
             {...register("email", { required: true })}
             onChange={handleInputChange}
           />
           {errors.email && <p>Email is required</p>}
           <label>Password</label>
           <input
+            value={loginFormData.password}
             type="password"
             {...register("password", { required: true })}
             onChange={handleInputChange}

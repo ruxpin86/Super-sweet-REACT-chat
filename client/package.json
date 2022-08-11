@@ -1,8 +1,8 @@
 {
   "name": "client",
   "version": "1.0.0",
+  "proxy": "http://localhost:3001",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -26,9 +26,9 @@
     "socket.io-client": "^4.5.1"
   },
   "eslintConfig": {
-    "extends": [
+    "extends": 
       "react-app"
-    ]
+    
   },
   "browserslist": {
     "production": [
@@ -41,10 +41,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "development": [
-    "last 1 chrome version",
-    "last 1 firefox version",
-    "last 1 safari version"
-  ]
+  }
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../../utils/mutations";
+// import { useMutation } from "@apollo/client";
+// import { ADD_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { Collapse } from "react-collapse";
 import "./signup.css";
@@ -16,10 +16,10 @@ export default function Signup(props) {
 
   const [open, setOpen] = useState(false);
 
-  const [addUser, { error, data }] = useMutation(ADD_USER);
-  if (error) {
-    console.log(JSON.stringify(error));
-  }
+  // const [addUser, { error, data }] = useMutation(ADD_USER);
+  // if (error) {
+  //   console.log(JSON.stringify(error));
+  // }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -37,11 +37,11 @@ export default function Signup(props) {
     event.preventDefault();
     handleSubmit(async (submitData) => {
       try {
-        const { data } = await addUser({
-          variables: { ...userFormData },
-        });
-        console.log(data);
-        Auth.login(data.addUser.token);
+        // const { data } = await addUser({
+        //   variables: { ...userFormData },
+        // });
+        // console.log(data);
+        // Auth.login(data.addUser.token);
         navigate("/chat", { replace: true });
       } catch (err) {
         console.error(err);

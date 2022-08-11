@@ -71,7 +71,7 @@ userSchema.methods.isCorrectPassword = async function (password) {
 };
 
 userSchema.virtual("friendCount").get(function () {
-  return this.friendsList.map();
+  return this.friendsList.length;
 });
 
 const User = model("User", userSchema);
