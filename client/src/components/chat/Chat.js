@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 // import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 // import { useForm } from "react-hook-form";
-import { useMutation, useQuery } from "@apollo/client";
+// import { useMutation, useQuery } from "@apollo/client";
 import { io } from "socket.io-client";
 import "./chat.css";
-import { ADD_MESSAGE } from "../../utils/mutations";
-import { QUERY_ME } from "../../utils/queries";
-import { QUERY_ALL_MESSAGES } from "../../utils/queries";
+// import { ADD_MESSAGE } from "../../utils/mutations";
+// import { QUERY_ME } from "../../utils/queries";
+// import { QUERY_ALL_MESSAGES } from "../../utils/queries";
 // import { QUERY_ALL_CONVERSATIONS } from "../../utils/queries";
 
 //Socket.io Middleware
@@ -49,10 +49,10 @@ export default function Chat() {
   // console.log(userMessage);
   // console.log(userId);
 
-  const [addMessage, { error }] = useMutation(ADD_MESSAGE);
-  if (error) {
-    console.log(JSON.stringify(error));
-  }
+  // const [addMessage, { error }] = useMutation(ADD_MESSAGE);
+  // if (error) {
+  //   console.log(JSON.stringify(error));
+  // }
 
   const inputRef = useRef(null);
 
@@ -98,17 +98,17 @@ export default function Chat() {
     socket.emit("ping");
   };
 
-  const { loading, data, error: userError } = useQuery(QUERY_ME);
-  // console.log(data);
-  if (userError) {
-    console.log(JSON.stringify(userError));
-  }
-  const userData = data?.getMe;
-  const username = userData?.username;
-  const userId = userData?.id;
+  // const { loading, data, error: userError } = useQuery(QUERY_ME);
+  // // console.log(data);
+  // if (userError) {
+  //   console.log(JSON.stringify(userError));
+  // }
+  // const userData = data?.getMe;
+  // const username = userData?.username;
+  // const userId = userData?.id;
 
   //THIS ONE FOR GRABBING USER MESSAGE
-  const userMessage = userData?.messages;
+  // const userMessage = userData?.messages;
   // previousMsgs.push(userMessage);
 
   // if (!loading && !error && data) {
