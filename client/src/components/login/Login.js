@@ -18,49 +18,49 @@ export default function Login(props) {
 
   const [open, setOpen] = useState(false);
 
-  // const [login, { error }] = useMutation(LOGIN_USER);
-  // if (error) {
-  //   console.log(JSON.stringify(error));
-  // }
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setloginFormData({ ...loginFormData, [name]: value });
   };
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+  // const {
+  //   register,
+  //   formState: { errors },
+  //   handleSubmit,
+  // } = useForm();
 
   const navigate = useNavigate();
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    handleSubmit(async (submitData) => {
-      // console.log(submitData);
-      try {
-        // const { data } = await login({
-        //   variables: { ...submitData },
-        // });
-        // Auth.login(data.login.token);
-        // navigate("/chat");
-        const response = await loginUser(loginFormData);
-        if (!response.ok) {
-          throw new Error("something went terribly wrong.");
-        }
-        const { token, user } = await response.json();
-        console.log(user);
-        Auth.login(token);
-      } catch (err) {
-        console.error(err);
+    // handleSubmit(async (submitData) => {
+    // console.log(submitData);
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    try {
+      // const { data } = await login({
+      //   variables: { ...submitData },
+      // });
+      // Auth.login(data.login.token);
+      const response = await loginUser(loginFormData);
+      if (!response.ok) {
+        throw new Error("something went terribly wrong.");
       }
+      const { token, user } = await response.json();
+      console.log(user);
+      Auth.login(token);
+      navigate("/chat");
+    } catch (err) {
+      console.error(err);
+    }
 
-      setloginFormData({
-        email: "",
-        password: "",
-      });
-    })(event);
+    setloginFormData({
+      email: "",
+      password: "",
+    });
+    // };
   };
 
   return (
@@ -70,24 +70,37 @@ export default function Login(props) {
       </h2>
       <Collapse isOpened={open}>
         <br></br>
-        <form className="login-form">
+        <form
+          className="login-form"
+          noValidate
+          validated={validated}
+          onSubmit={onSubmit}
+        >
           <label>Email</label>
           <input
+            type="text"
+            name="email"
             value={loginFormData.email}
-            {...register("email", { required: true })}
+            // {...register("email", { required: true })}
             onChange={handleInputChange}
+            required
           />
-          {errors.email && <p>Email is required</p>}
+          {/* {errors.email && <p>Email is required</p>} */}
           <label>Password</label>
           <input
             value={loginFormData.password}
             type="password"
-            {...register("password", { required: true })}
+            name="password"
+            // {...register("password", { required: true })}
             onChange={handleInputChange}
           />
-          {errors.password && <p>Password is required</p>}
-          <Link to="/main">
-            <button onClick={onSubmit} className="login-btn" type="submit">
+          {/* {errors.password && <p>Password is required</p>} */}
+          <Link to="/chat">
+            <button
+              disabled={!(loginFormData.email && loginFormData.password)}
+              className="login-btn"
+              type="submit"
+            >
               Login
             </button>
           </Link>

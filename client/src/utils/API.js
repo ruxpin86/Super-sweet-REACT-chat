@@ -18,8 +18,9 @@ export const createUser = (userData) => {
 };
 
 export const loginUser = (userData) => {
-  return fetch("/api/users/login", {
+  return fetch("http://localhost:3001/api/users/login", {
     method: "POST",
+    mode: "no-cors",
     headers: {
       "Content-Type": "application/json",
     },
